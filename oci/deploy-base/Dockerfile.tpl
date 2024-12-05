@@ -49,7 +49,8 @@ RUN apt-get update && \
         inetutils-ping \
         curl \
         ${JAVA_PKG} \
-        rrdtool="${RRDTOOL_VERSION}" && \
+        rrdtool="${RRDTOOL_VERSION}" \
+        rsync && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
