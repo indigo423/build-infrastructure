@@ -54,13 +54,16 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install confd
+# Install confd and set Java home directory
 RUN if [ "$(uname -m)" = "x86_64" ]; then \
       curl -L "${CONFD_BASE_URL}/confd-${CONFD_VERSION}-linux-amd64.tar.gz" | tar xvz -C /usr/bin; \
+      ln -s /usr/lib/jvm/java-17-openjdk* /usr/lib/jvm/java-17-openjdk; \
     elif [ "$(uname -m)" = "armv7l" ]; then \
       curl -L "${CONFD_BASE_URL}/confd-${CONFD_VERSION}-linux-arm7.tar.gz" | tar xvz -C /usr/bin; \
+      ln -s /usr/lib/jvm/java-17-openjdk* /usr/lib/jvm/java-17-openjdk; \
     else \
       curl -L "${CONFD_BASE_URL}/confd-${CONFD_VERSION}-linux-arm64.tar.gz" | tar xvz -C /usr/bin; \
+      ln -s /usr/lib/jvm/java-17-openjdk* /usr/lib/jvm/java-17-openjdk; \
     fi && \
     mkdir -p /opt/prom-jmx-exporter && \
     curl "${PROM_JMX_EXPORTER_URL}" --output /opt/prom-jmx-exporter/jmx_prometheus_javaagent.jar
